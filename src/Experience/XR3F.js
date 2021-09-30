@@ -63,15 +63,15 @@ const XR3F = ({ name, updateCtx }) => {
 
     //TURN BOX OFF - NEED REF TO GET TO BOX
     // invisibleRef.display = false;
-    // gl.render(scene, camera);
-    gl.render(xxxTempScene, camera);
+    gl.render(scene, camera);
+    // gl.render(xxxTempScene, camera);
     gl.autoClear = false;
     gl.clear(true, false, true);
  
     //TURN BOX ON
     // invisibleRef.display = true;
     gl.render(scene, camera);
-    // gl.render(xxxTempScene, camera);
+    gl.render(xxxTempScene, camera);
     gl.autoClear = true;
   }, 1);
 
