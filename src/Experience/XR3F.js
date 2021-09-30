@@ -4,9 +4,7 @@ import { useThree, useFrame } from "@react-three/fiber";
 import useStore from "../state";
 import useSound from "use-sound";
 import popNoise from "../audio/showContentInfo.mp3";
-import SceneParts from "../sceneParts";
-import { Ring } from "@react-three/drei";
-import { gsap } from "gsap";
+import SceneParts from "../sceneParts"; 
 
 function MyReticle() {
   const myMesh = useRef();
@@ -19,8 +17,7 @@ function MyReticle() {
 }
 
 const XR3F = ({ name, updateCtx }) => {
-  const { scene, gl, camera } = useThree();
-
+  const { scene, gl, camera } = useThree(); 
   const [tapTarget, setTapTarget] = useState(null);
   const $surface = useRef();
   const $box = useRef();
