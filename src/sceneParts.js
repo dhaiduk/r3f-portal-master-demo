@@ -9,7 +9,7 @@ function InvisiblePanel(...props) {
   return (
     <mesh {...props} ref={ref} scale={[1, 0.001, 1]}>
       <boxGeometry />
-      <meshBasicMaterial color={"yellow"} />
+      <meshBasicMaterial color={"orange"} />
     </mesh>
   );
 }
@@ -82,7 +82,7 @@ const sceneParts = ({ name, updateCtx }) => {
             position={[0, 1.5, 0.5]} // -.5 small adjustment seems to be good!
             rotation={[Math.PI / 2, 0, 0]}
           >
-            <group position={[0, 0, 0]}>
+            <group position={[1, 0, 1]}>
               <TestInvisiblePanel />
             </group>
 
@@ -92,7 +92,7 @@ const sceneParts = ({ name, updateCtx }) => {
               <ThePlatform />
             </group> */}
  
-            <group position={[0, 0, 0]}>
+            <group position={[-1, 0, -1]}>
               <InvisiblePanel />
             </group>
           </group>
