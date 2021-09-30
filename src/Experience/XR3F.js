@@ -15,7 +15,7 @@ function MyReticle() {
 
   return (
     <mesh ref={myMesh}>
-      <boxBufferGeometry /> 
+      <ringBufferGeometry args={[1.5,2,50,60]}/> 
     </mesh>
   );
 }
@@ -154,7 +154,7 @@ const XR3F = ({ name, updateCtx }) => {
   return (
     <group>
       <group name="crawlingreticle" visible={!hasFirstPlacement} ref={ringRef}>
-        <mesh scale={[0.4, 0.01, 0.4]} rotation={[0, 0, 0]}>
+        <mesh scale={[0.13, 0.13, 0.13]} rotation={[-Math.PI/2, 0, 0]}>
           <MyReticle />
         </mesh>
       </group>

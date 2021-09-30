@@ -1,29 +1,25 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import ThePortal from "./Modelz/Portal";
-import Wheel from "./Wheelfortune.js";
+import ThePlatform from "./Modelz/Platform";
 import { Html, Environment, Box } from "@react-three/drei";
 import useStore from "./state";
-import * as THREE from "three";
-import { GenTools } from "./GenTools";
-import CharacterVid from "./Component/elements/CharacterVid";
 
-import { Text, useTexture } from "@react-three/drei";
 function InvisiblePanel(...props) {
   const ref = useRef();
   return (
-    <Suspense>
-      <mesh {...props} ref={ref} scale={[1,.5,1]}>
-        <boxGeometry />
-        <meshBasicMaterial color={"green"} />
-      </mesh>
-
-      <mesh {...props} scale={1}>
-        <group position={[0, 3, 0]}>
-          <boxGeometry />
-          <meshStandardMaterial color={"blue"} />
-        </group>
-      </mesh>
-    </Suspense>
+    <mesh {...props} ref={ref} scale={[1, 0.001, 1]}>
+      <boxGeometry />
+      <meshBasicMaterial color={"yellow"} />
+    </mesh>
+  );
+}
+function TestInvisiblePanel(...props) {
+  const ref = useRef();
+  return (
+    <mesh {...props} ref={ref} scale={[1, 0.001, 1]}>
+      <boxGeometry />
+      <meshBasicMaterial color={"blue"} />
+    </mesh>
   );
 }
 
@@ -86,8 +82,19 @@ const sceneParts = ({ name, updateCtx }) => {
             position={[0, 1.5, 0.5]} // -.5 small adjustment seems to be good!
             rotation={[Math.PI / 2, 0, 0]}
           >
-            <ThePortal /> 
-            <InvisiblePanel position={[-2, 0, -4]} />
+            <group position={[0, 0, 0]}>
+              <TestInvisiblePanel />
+            </group>
+
+            <ThePortal />
+
+            {/* <group position={[0, 0, 0]}>
+              <ThePlatform />
+            </group> */}
+ 
+            <group position={[0, 0, 0]}>
+              <InvisiblePanel />
+            </group>
           </group>
         </Suspense>
       </Suspense>
