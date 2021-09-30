@@ -7,15 +7,6 @@ import useStore from "./state";
 import { useThree } from "@react-three/fiber";
 import { CubeTextureLoader } from "three";
 
-function InvisibleCube(...props) {
-  const ref = useRef();
-  return (
-    <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.01, 0.5]}>
-      <boxGeometry renderOrder={2}/>
-      <meshBasicMaterial colorWrite={false} color={"red"} renderOrder={2} />
-    </mesh>
-  );
-}
 
 function SkyBox() {
   const { scene } = useThree();
@@ -94,9 +85,7 @@ const sceneParts = ({ name, updateCtx }) => {
         </group>
 
         <Suspense fallback={<Html>Loading..</Html>}>
-          <group position={[0, .8, 1]}>
-            <InvisibleCube visible={!hasFirstPlacement} />
-          </group>
+
           <group
             ref={refelevatorgroup}
             position={[0, 1.5, 0.5]} // -.5 small adjustment seems to be good!
@@ -109,9 +98,26 @@ const sceneParts = ({ name, updateCtx }) => {
               position={[0, -0.5, 1]}
               rotation={[-Math.PI / 2, 0, 0]}
             >
-              {/* <ThePlatform /> */}
+              <ThePlatform />
             </group>
           </group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </Suspense>
       </Suspense>
     </group>

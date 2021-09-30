@@ -3,7 +3,7 @@ import { useThree, useFrame } from "@react-three/fiber";
 import useStore from "../state";
 import useSound from "use-sound";
 import popNoise from "../audio/showContentInfo.mp3";
-import SceneParts from "../sceneParts"; 
+import SceneParts from "../sceneParts";
 
 function MyReticle() {
   const myMesh = useRef();
@@ -16,11 +16,12 @@ function MyReticle() {
 }
 
 const XR3F = ({ name, updateCtx }) => {
-  const { scene, gl, camera } = useThree(); 
+  const { scene, gl, camera } = useThree();
   const [tapTarget, setTapTarget] = useState(null);
   const $surface = useRef();
   const $box = useRef();
   const ringRef = useRef();
+  const invisibleRef = useRef();
   const [hasFirstPlacement, setFirstPlacement] = useState(false);
   const { hasPlacedRoutine } = useStore();
   const { setfloorClickedX, setfloorClickedY, setfloorClickedZ } = useStore();
@@ -31,9 +32,30 @@ const XR3F = ({ name, updateCtx }) => {
     volume: 1.18,
   });
 
+  function InvisibleCube(...props) {
+    const ref = useRef();
+    return (
+      <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.01, 0.5]}>
+        <boxGeometry renderOrder={2} />
+        <meshBasicMaterial colorWrite={false} color={"red"} renderOrder={2} />
+      </mesh>
+    );
+  }
+
   useFrame(({ gl, scene, camera, raycaster }) => {
     gl.clearDepth();
+
+    //TURN BOX OFF - NEED REF TO GET TO BOX
+    invisibleRef.display = false;
     gl.render(scene, camera);
+    gl.autoClear = false;
+    gl.clear(true, false, true);
+
+    //TURN BOX ON
+    invisibleRef.display = true;
+    gl.render(scene, camera);
+
+    gl.autoClear = true;
   }, 1);
 
   const { XR8, THREE } = window;
@@ -55,7 +77,7 @@ const XR3F = ({ name, updateCtx }) => {
   };
 
   const onStart = ({ canvasWidth, canvasHeight }) => {
-    gl.autoClear = false;
+    gl.autoClear = true;
     gl.setSize(canvasWidth, canvasHeight);
     gl.antialias = true;
 
@@ -161,6 +183,10 @@ const XR3F = ({ name, updateCtx }) => {
       <group position={[0, 0, 0]}>
         <mesh castShadow position={tapTarget} visible={!!tapTarget} ref={$box}>
           <SceneParts />
+
+          <group position={[0, 0.8, 1]}>
+            <InvisibleCube visible={!hasFirstPlacement} ref={invisibleRef}  />
+          </group>
         </mesh>
       </group>
     </group>
