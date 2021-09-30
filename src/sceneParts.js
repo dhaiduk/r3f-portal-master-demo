@@ -22,9 +22,8 @@ function InvisibleCube(...props) {
     <mesh {...props} ref={ref} scale={[.5,.5,.5]}>
       <boxGeometry />
       <meshBasicMaterial
-        // colorWrite={false}
-        renderOrder={1}
-        color={"red"}
+        colorWrite={false}
+        renderOrder={1} 
       />
     </mesh>
   );
