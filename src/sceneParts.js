@@ -10,9 +10,9 @@ import { CubeTextureLoader } from "three";
 function InvisibleCube(...props) {
   const ref = useRef();
   return (
-    <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.5, 0.5]}>
+    <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.01, 0.5]}>
       <boxGeometry renderOrder={2}/>
-      <meshBasicMaterial colorWrite={false} renderOrder={2} />
+      <meshBasicMaterial colorWrite={false} color={"red"} renderOrder={2} />
     </mesh>
   );
 }
@@ -94,7 +94,7 @@ const sceneParts = ({ name, updateCtx }) => {
         </group>
 
         <Suspense fallback={<Html>Loading..</Html>}>
-          <group position={[0, 0.5, 1]}>
+          <group position={[0, .8, 1]}>
             <InvisibleCube visible={!hasFirstPlacement} />
           </group>
           <group
