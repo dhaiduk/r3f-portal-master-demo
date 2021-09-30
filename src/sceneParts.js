@@ -13,6 +13,15 @@ function InvisiblePanel(...props) {
     </mesh>
   );
 }
+function InvisiblePanel3(...props) {
+  const ref = useRef();
+  return (
+    <mesh {...props} ref={ref} scale={[2, 0.001, 1]}>
+      <boxGeometry />
+      <meshBasicMaterial   color={"green"} />
+    </mesh>
+  );
+}
 function TestInvisiblePanel(...props) {
   const ref = useRef();
   return (
@@ -93,6 +102,10 @@ const sceneParts = ({ name, updateCtx }) => {
             </group> */}
  
             <group position={[-1, 0, -1]}>
+              <InvisiblePanel3 />
+            </group>
+
+            <group position={[1.5, 0, 1]}>
               <InvisiblePanel />
             </group>
           </group>
