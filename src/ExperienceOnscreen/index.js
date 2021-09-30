@@ -15,7 +15,7 @@ function MyBox() {
     <Suspense>
       <mesh position={[0, 0, 0]} ref={ref} scale={20}>
         <boxGeometry />
-        <meshStandardMaterial color={"blue"} map={myytexture} />
+        <meshBasicMaterial color={"blue"} map={myytexture} />
       </mesh>
     </Suspense>
   );

@@ -36,13 +36,17 @@ const XR3F = ({ name, updateCtx }) => {
   //do in effect
   var xxxTempScene = new Scene();
 
-  const geometry = new BoxGeometry(1, 1, 1);
+  const geometry = new BoxGeometry(2, 2, 1);
   const material = new MeshBasicMaterial({ color: 0x00ff00 });
   const cube = new Mesh(geometry, material);
   xxxTempScene.add(cube);
+  cube.colorWrite = false;
   cube.position.x = floorClickedX;
-  cube.position.y = floorClickedY;
-  cube.position.z = floorClickedZ;
+  cube.position.y = floorClickedY-.3;
+  cube.position.z = floorClickedZ-.5;
+  gl.autoClear = false ;
+  // material.stencilWriteMask = 0;
+  // material.stencilFail = true;
 
   const [thepopNoise] = useSound(popNoise, {
     volume: 1.18,
@@ -51,29 +55,64 @@ const XR3F = ({ name, updateCtx }) => {
   function InvisibleCube(...props) {
     const ref = useRef();
     return (
-      <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.01, 0.5]}>
-        <boxGeometry renderOrder={2} />
-        <meshBasicMaterial colorWrite={false} color={"red"} renderOrder={2} />
+      <mesh {...props}   ref={ref} scale={[0.5, 0.01, 0.5]}>
+        <boxGeometry   />
+        <meshBasicMaterial
+          // colorWrite={false}
+          // stencilFail
+          // stencilWriteMask={0}
+          color={"red"}
+          renderOrder={2}
+        />
       </mesh>
     );
   }
 
-  useFrame(({ gl, scene, camera, raycaster }) => {
-    gl.clearDepth();
+  // clipping_planes_fragment: clipping_planes_fragment,
+  // 	clipping_planes_pars_fragment: clipping_planes_pars_fragment,
+  // 	clipping_planes_pars_vertex: clipping_planes_pars_vertex,
+  // 	clipping_planes_vertex: clipping_planes_vertex,
 
-    //TURN BOX OFF - NEED REF TO GET TO BOX
-    // invisibleRef.display = false;
-    gl.render(scene, camera);
-    // gl.render(xxxTempScene, camera);
-    gl.autoClear = false;
-    gl.clear(true, false, true);
- 
-    //TURN BOX ON
-    // invisibleRef.display = true;
-    gl.render(scene, camera);
+  // Yes. You have to #include them in the same/similar places that they are included in
+  // e.g. MeshBasicMaterial, whose shaders you will find in the ShaderLib
+  // folder (three.js\src\renderers\shaders\ShaderLib).
+  // They are named meshbasic_vert.glsl.js and meshbasic_frag.glsl.js
+
+  useFrame(({ gl, scene, camera, raycaster }) => {
+    // Manually clear the renderer
+    gl.clear();
+
+    // Sets which color components to enable or to disable when drawing or rendering to a WebGLFramebuffer
+    gl.context.colorMask(false, false, false, false); // R, G, B, A
     gl.render(xxxTempScene, camera);
-    gl.autoClear = true;
+
+    // Enable back the writing into the color and alpha component
+    gl.context.colorMask(true, true, true, true);
+    gl.render(scene, camera);
   }, 1);
+
+  // useFrame(({ gl, scene, camera, raycaster }) => {
+
+  //   gl.clearDepth();
+
+  //   //TURN BOX OFF - NEED REF TO GET TO BOX
+  //   // invisibleRef.display = false;
+  //   gl.render(scene, camera);
+  //   // gl.render(xxxTempScene, camera);
+  //   gl.autoClear = false;
+  //   gl.clear(true, false, true);
+
+  //   //dont render if
+
+  //   // stencilWrite
+  //   // You can disable stencil writing by either setting stencilWriteMask to 0 or setting stencilFail
+
+  //   //TURN BOX ON
+  //   // invisibleRef.display = true;
+  //   gl.render(scene, camera);
+  //   gl.render(xxxTempScene, camera);
+  //   gl.autoClear = true;
+  // }, 1);
 
   const { XR8, THREE } = window;
 

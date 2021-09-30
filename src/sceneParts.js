@@ -100,24 +100,7 @@ const sceneParts = ({ name, updateCtx }) => {
             >
               <ThePlatform />
             </group>
-          </group>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          </group> 
         </Suspense>
       </Suspense>
     </group>
