@@ -33,15 +33,8 @@ function TestInvisiblePanel(...props) {
 }
 
 const sceneParts = ({ name, updateCtx }) => {
-  const refelevatorgroup = useRef();
-  const myMesh = useRef();
-  const viddRef = useRef();
-  const floor = useStore((state) => state.floor);
-  const doorOpener = useStore((state) => state.doorOpener);
-  const raiser = useStore((state) => state.triggerRaiser);
-  const { modelNum } = useStore();
-  const {
-    hasFirstPlacement,
+  const refelevatorgroup = useRef(); 
+  const { 
     floorClickedX,
     floorClickedY,
     floorClickedZ,
