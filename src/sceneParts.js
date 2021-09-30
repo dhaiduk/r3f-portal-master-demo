@@ -18,7 +18,7 @@ function InvisiblePanel3(...props) {
   return (
     <mesh {...props} ref={ref} scale={[2, 0.001, 1]}>
       <boxGeometry />
-      <meshBasicMaterial   color={"green"} />
+      <meshBasicMaterial  colorWrite={false} color={"green"} />
     </mesh>
   );
 }
@@ -53,7 +53,7 @@ const sceneParts = ({ name, updateCtx }) => {
 
   return (
     <group position={[0, 0, 0]}>
-      <ambientLight intensity={1.3} />
+      <ambientLight intensity={2.3} />
 
       <spotLight
         intensity={1.6}
@@ -90,9 +90,9 @@ const sceneParts = ({ name, updateCtx }) => {
 
             <ThePortal />
 
-            {/* <group position={[0, 0, 0]}>
+            <group position={[1, -1, 0]}>
               <ThePlatform />
-            </group> */}
+            </group>
  
             <group position={[-1, 0, -1]}>
               <InvisiblePanel3 />
