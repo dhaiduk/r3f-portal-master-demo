@@ -6,15 +6,13 @@ import { useFrame } from "@react-three/fiber";
 import useStore from "./state";
 import { useThree } from "@react-three/fiber";
 import { CubeTextureLoader } from "three";
- 
+
 function InvisibleCube(...props) {
   const ref = useRef();
   return (
-    <mesh {...props} ref={ref} scale={[.5,.5,.5]}>
-      <boxGeometry />
-      <meshBasicMaterial
-        colorWrite={false} 
-      />
+    <mesh {...props} renderOrder={2} ref={ref} scale={[0.5, 0.5, 0.5]}>
+      <boxGeometry renderOrder={2}/>
+      <meshBasicMaterial colorWrite={false} renderOrder={2} />
     </mesh>
   );
 }
@@ -91,10 +89,14 @@ const sceneParts = ({ name, updateCtx }) => {
         <group position={[0, 0, 0]} scale={[0.5, 0.5, 0.5]}>
           <Suspense fallback={<Html></Html>}>
             {/* <Environment preset={"city"} background /> */}
+            {/* <SkyBox/> */}
           </Suspense>
         </group>
-        {/* <SkyBox/> */}
+
         <Suspense fallback={<Html>Loading..</Html>}>
+          <group position={[0, 0.5, 1]}>
+            <InvisibleCube visible={!hasFirstPlacement} />
+          </group>
           <group
             ref={refelevatorgroup}
             position={[0, 1.5, 0.5]} // -.5 small adjustment seems to be good!
@@ -104,16 +106,11 @@ const sceneParts = ({ name, updateCtx }) => {
 
             <group
               scale={0.6}
-              position={[0, -.5, 1]}
+              position={[0, -0.5, 1]}
               rotation={[-Math.PI / 2, 0, 0]}
             >
               <ThePlatform />
             </group>
- 
-            <group position={[0, 0.5, 1]}>
-              <InvisibleCube visible={!hasFirstPlacement} />
-            </group>
- 
           </group>
         </Suspense>
       </Suspense>
