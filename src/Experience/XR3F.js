@@ -5,22 +5,18 @@ import useStore from "../state";
 import useSound from "use-sound";
 import popNoise from "../audio/showContentInfo.mp3";
 import SceneParts from "../sceneParts";
-import { Ring } from "@react-three/drei"; 
+import { Ring } from "@react-three/drei";
 import { gsap } from "gsap";
 
 function MyReticle() {
   const myMesh = useRef();
- 
-  //change this to an image, or ring when we know what is needed
 
   return (
     <mesh ref={myMesh}>
-      <ringBufferGeometry args={[1.5,2,50,60]}/> 
+      <ringBufferGeometry args={[1.5, 2, 50, 60]} />
     </mesh>
   );
 }
- 
- 
 
 const XR3F = ({ name, updateCtx }) => {
   const { scene, gl, camera } = useThree();
@@ -31,9 +27,6 @@ const XR3F = ({ name, updateCtx }) => {
   const ringRef = useRef();
   const [hasFirstPlacement, setFirstPlacement] = useState(false);
   const { hasPlacedRoutine } = useStore();
-  const { doBoundsWarning } = useStore();
-  const { boundsWarning } = useStore();
-  const { floorClickedZ } = useStore();
   const { setfloorClickedX, setfloorClickedY, setfloorClickedZ } = useStore();
 
   const canvas = gl.domElement;
@@ -46,7 +39,6 @@ const XR3F = ({ name, updateCtx }) => {
   useFrame(({ gl, scene, camera, raycaster }) => {
     gl.clearDepth();
     gl.render(scene, camera);
- 
   }, 1);
 
   const { XR8, THREE } = window;
@@ -154,7 +146,7 @@ const XR3F = ({ name, updateCtx }) => {
   return (
     <group>
       <group name="crawlingreticle" visible={!hasFirstPlacement} ref={ringRef}>
-        <mesh scale={[0.13, 0.13, 0.13]} rotation={[-Math.PI/2, 0, 0]}>
+        <mesh scale={[0.13, 0.13, 0.13]} rotation={[-Math.PI / 2, 0, 0]}>
           <MyReticle />
         </mesh>
       </group>
