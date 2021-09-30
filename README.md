@@ -1,5 +1,4 @@
 # Portal Master
-
 This React-Three/Fiber project is the main portal template and demo.
 
 ###  To Get up and running locally
@@ -23,5 +22,3 @@ The good stuff is in the 'Experience'.  The main part SceneParts and is found in
 Look in sceneParts.js to find how it places the model and sets the items to be displayed according to the floor number.
 
 State management:  Uses zustand (by creator of R3F).  Search for: ```import useStore from './state'```
-
-
