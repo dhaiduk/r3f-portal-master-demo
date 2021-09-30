@@ -140,7 +140,7 @@ const sceneParts = ({ name, updateCtx }) => {
 
             <ThePortal visible={isInPortalSpace} />
 
-            <group position={[1, -1, 0]}>
+            <group position={[1, -1, 0]}  rotateX={-Math.PI/2}>
               <ThePlatform />
             </group>
 
