@@ -7,23 +7,13 @@ import useStore from "./state";
 import { useThree } from "@react-three/fiber";
 import { CubeTextureLoader } from "three";
  
-function InvisiblePanel3(...props) {
-  const ref = useRef();
-  return (
-    <mesh {...props} ref={ref} scale={[2, 0.001, 1]}>
-      <boxGeometry />
-      <meshBasicMaterial colorWrite={false} renderOrder={1} color={"green"} />
-    </mesh>
-  );
-}
 function InvisibleCube(...props) {
   const ref = useRef();
   return (
     <mesh {...props} ref={ref} scale={[.5,.5,.5]}>
       <boxGeometry />
       <meshBasicMaterial
-        colorWrite={false}
-        renderOrder={1} 
+        colorWrite={false} 
       />
     </mesh>
   );
@@ -119,11 +109,7 @@ const sceneParts = ({ name, updateCtx }) => {
             >
               <ThePlatform />
             </group>
-
-            <group position={[-1, 0, -1]}>
-              <InvisiblePanel3 />
-            </group>
-
+ 
             <group position={[0, 0.5, 1]}>
               <InvisibleCube visible={!hasFirstPlacement} />
             </group>
