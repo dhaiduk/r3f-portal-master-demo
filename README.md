@@ -8,7 +8,7 @@ This React-Three/Fiber project is the main portal template and demo.
 yarn install (preferred to npm install)
 yarn run build 
 ```
-Then use ```yarn run serve``` to see the QR code for mobile ease.
+Then ```yarn run serve``` to see mobile QR code
  
 ###  Reading the source code
 
