@@ -10,7 +10,7 @@ export default function Model(props) {
   const { nodes, materials } = useGLTF("/portal.glb");
 
   useFrame(() => {
-    group.current.rotation.y += 0.004; 
+    group.current.rotation.y += 0.022; 
   });
 
   return (

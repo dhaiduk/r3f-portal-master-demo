@@ -24,7 +24,6 @@ const XR3F = ({ name, updateCtx }) => {
   const [hasFirstPlacement, setFirstPlacement] = useState(false);
   const { hasPlacedRoutine } = useStore();
   const { setfloorClickedX, setfloorClickedY, setfloorClickedZ } = useStore();
-
   const canvas = gl.domElement;
   canvas.id = name;
 

@@ -22,7 +22,6 @@ function MyBox() {
 }
 
 export default function App() {
-  const { turnDebugOn } = useStore();
   const { hasPlacedRoutine } = useStore();
   const { hasFirstPlacement } = useStore();
 
