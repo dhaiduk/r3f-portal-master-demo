@@ -4,7 +4,9 @@ import useStore from "../state";
 import useSound from "use-sound";
 import popNoise from "../audio/showContentInfo.mp3";
 import SceneParts from "../sceneParts";
-
+import { Scene } from "three";
+import { BoxGeometry, MeshBasicMaterial, Mesh } from "three";
+// import * as THREE from "three";
 function MyReticle() {
   const myMesh = useRef();
 
@@ -25,8 +27,22 @@ const XR3F = ({ name, updateCtx }) => {
   const [hasFirstPlacement, setFirstPlacement] = useState(false);
   const { hasPlacedRoutine } = useStore();
   const { setfloorClickedX, setfloorClickedY, setfloorClickedZ } = useStore();
+  const { floorClickedX, floorClickedY, floorClickedZ } = useStore();
   const canvas = gl.domElement;
   canvas.id = name;
+
+  console.log("create scene");
+
+  //do in effect
+  var xxxTempScene = new Scene();
+
+  const geometry = new BoxGeometry(1, 1, 1);
+  const material = new MeshBasicMaterial({ color: 0x00ff00 });
+  const cube = new Mesh(geometry, material);
+  xxxTempScene.add(cube);
+  cube.position.x = floorClickedX;
+  cube.position.y = floorClickedY;
+  cube.position.z = floorClickedZ;
 
   const [thepopNoise] = useSound(popNoise, {
     volume: 1.18,
@@ -46,15 +62,16 @@ const XR3F = ({ name, updateCtx }) => {
     gl.clearDepth();
 
     //TURN BOX OFF - NEED REF TO GET TO BOX
-    invisibleRef.display = false;
-    gl.render(scene, camera);
+    // invisibleRef.display = false;
+    // gl.render(scene, camera);
+    gl.render(xxxTempScene, camera);
     gl.autoClear = false;
     gl.clear(true, false, true);
-
+ 
     //TURN BOX ON
-    invisibleRef.display = true;
+    // invisibleRef.display = true;
     gl.render(scene, camera);
-
+    // gl.render(xxxTempScene, camera);
     gl.autoClear = true;
   }, 1);
 
@@ -185,7 +202,7 @@ const XR3F = ({ name, updateCtx }) => {
           <SceneParts />
 
           <group position={[0, 0.8, 1]}>
-            <InvisibleCube visible={!hasFirstPlacement} ref={invisibleRef}  />
+            <InvisibleCube visible={!hasFirstPlacement} ref={invisibleRef} />
           </group>
         </mesh>
       </group>
