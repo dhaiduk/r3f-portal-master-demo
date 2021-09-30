@@ -5,22 +5,8 @@ import { Html, Environment, Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import useStore from "./state";
 import { useThree } from "@react-three/fiber";
-import {
-  CubeTextureLoader,
-  CubeCamera,
-  WebGLCubeRenderTarget,
-  RGBFormat,
-  LinearMipmapLinearFilter,
-} from "three";
-function InvisiblePanel(...props) {
-  const ref = useRef();
-  return (
-    <mesh {...props} ref={ref} scale={[1, 0.001, 1]}>
-      <boxGeometry />
-      <meshBasicMaterial color={"orange"} />
-    </mesh>
-  );
-}
+import { CubeTextureLoader } from "three";
+ 
 function InvisiblePanel3(...props) {
   const ref = useRef();
   return (
@@ -33,30 +19,21 @@ function InvisiblePanel3(...props) {
 function InvisibleCube(...props) {
   const ref = useRef();
   return (
-    <mesh {...props} ref={ref} scale={[1, 1, 1]}>
+    <mesh {...props} ref={ref} scale={[.5,.5,.5]}>
       <boxGeometry />
       <meshBasicMaterial
-        colorWrite={false}
+        // colorWrite={false}
         renderOrder={1}
         color={"red"}
       />
     </mesh>
   );
 }
-function TestInvisiblePanel(...props) {
-  const ref = useRef();
-  return (
-    <mesh {...props} ref={ref} scale={[1, 0.001, 1]}>
-      <boxGeometry />
-      <meshBasicMaterial colorWrite={false} renderOrder={1} color={"blue"} />
-    </mesh>
-  );
-}
-// Loads the skybox texture and applies it to the scene.
+
 function SkyBox() {
   const { scene } = useThree();
   const loader = new CubeTextureLoader();
-  // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
+
   const texture = loader.load([
     "/1.jpg",
     "/2.jpg",
@@ -66,10 +43,10 @@ function SkyBox() {
     "/6.jpg",
   ]);
 
-  // Set the scene background property to the resulting texture.
   scene.background = texture;
   return null;
 }
+
 const sceneParts = ({ name, updateCtx }) => {
   const { camera } = useThree();
   const refelevatorgroup = useRef();
@@ -134,13 +111,13 @@ const sceneParts = ({ name, updateCtx }) => {
             position={[0, 1.5, 0.5]} // -.5 small adjustment seems to be good!
             rotation={[Math.PI / 2, 0, 0]}
           >
-            <group position={[1, 0, 1]}>
-              <TestInvisiblePanel />
-            </group>
+            <ThePortal />
 
-            <ThePortal visible={isInPortalSpace} />
-
-            <group position={[1, -1, 0]}  rotateX={-Math.PI/2}>
+            <group
+              scale={0.6}
+              position={[0, -.5, 1]}
+              rotation={[-Math.PI / 2, 0, 0]}
+            >
               <ThePlatform />
             </group>
 
@@ -148,13 +125,10 @@ const sceneParts = ({ name, updateCtx }) => {
               <InvisiblePanel3 />
             </group>
 
-            <group position={[0, .5, 1]}>
-              {/* <InvisibleCube /> */}
+            <group position={[0, 0.5, 1]}>
+              <InvisibleCube visible={!hasFirstPlacement} />
             </group>
-
-            <group position={[1.5, 0, 1]}>
-              <InvisiblePanel />
-            </group>
+ 
           </group>
         </Suspense>
       </Suspense>
