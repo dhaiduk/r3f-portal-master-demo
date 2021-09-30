@@ -45,7 +45,7 @@ const sceneParts = ({ name, updateCtx }) => {
   useFrame(() => {
     if (hasFirstPlacement) {
       if (floorClickedZ) {
-        var isInPortalSpace = camera.position.z < floorClickedZ - 0.5; //allow for offset with .5
+        var isInPortalSpace = camera.position.z < floorClickedZ ; //allow for offset with -.5 
 
         if (isInPortalSpace) {
           console.log("Yes isInPortalSpace");
@@ -109,7 +109,7 @@ const sceneParts = ({ name, updateCtx }) => {
               position={[0, -0.5, 1]}
               rotation={[-Math.PI / 2, 0, 0]}
             >
-              <ThePlatform />
+              {/* <ThePlatform /> */}
             </group>
           </group>
         </Suspense>
