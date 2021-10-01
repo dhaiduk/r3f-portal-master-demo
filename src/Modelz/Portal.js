@@ -14,7 +14,7 @@ export default function Model(props) {
   });
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}> 
       <ambientLight />
       <group name="Scene">
         <group name="Empty" rotation={[0, 0.45, 0]} />

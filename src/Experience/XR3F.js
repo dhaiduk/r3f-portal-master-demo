@@ -5,18 +5,10 @@ import useSound from "use-sound";
 import popNoise from "../audio/showContentInfo.mp3";
 import SceneParts from "../sceneParts";
 import { Scene } from "three";
+import MyReticle from "../Component/elements/Reticle";
 import { BoxGeometry, MeshBasicMaterial, Mesh } from "three";
-// import * as THREE from "three";
-function MyReticle() {
-  const myMesh = useRef();
 
-  return (
-    <mesh ref={myMesh}>
-      <ringBufferGeometry args={[1.5, 2, 50, 60]} />
-    </mesh>
-  );
-}
-
+ 
 const XR3F = ({ name, updateCtx }) => {
   const { scene, gl, camera } = useThree();
   const [tapTarget, setTapTarget] = useState(null);
@@ -42,9 +34,9 @@ const XR3F = ({ name, updateCtx }) => {
   xxxTempScene.add(cube);
   cube.colorWrite = false;
   cube.position.x = floorClickedX;
-  cube.position.y = floorClickedY-.3;
-  cube.position.z = floorClickedZ-.5;
-  gl.autoClear = false ;
+  cube.position.y = floorClickedY - 0.3;
+  cube.position.z = floorClickedZ - 0.5;
+  gl.autoClear = false;
   // material.stencilWriteMask = 0;
   // material.stencilFail = true;
 
@@ -55,14 +47,14 @@ const XR3F = ({ name, updateCtx }) => {
   function InvisibleCube(...props) {
     const ref = useRef();
     return (
-      <mesh {...props}   ref={ref} scale={[0.5, 0.01, 0.5]}>
-        <boxGeometry   />
+      <mesh {...props} ref={ref} scale={[0.5, 0.01, 0.5]}>
+        <boxGeometry />
         <meshBasicMaterial
-          // colorWrite={false}
+          colorWrite={false}
           // stencilFail
           // stencilWriteMask={0}
           color={"red"}
-          renderOrder={2}
+          // renderOrder={2}
         />
       </mesh>
     );
@@ -79,6 +71,38 @@ const XR3F = ({ name, updateCtx }) => {
   // They are named meshbasic_vert.glsl.js and meshbasic_frag.glsl.js
 
   useFrame(({ gl, scene, camera, raycaster }) => {
+    // clear buffers now: color, depth, stencil
+    // renderer.clear(true, true, true);
+    // // do not clear buffers before each render pass
+    // renderer.autoClear = false;
+
+ 
+    // renderer.render(scene, camera);
+
+    // // set things back to normal
+    // renderer.autoClear = true;
+
+ 
+
+// gl.enable(gl.STENCIL_TEST);
+
+//     gl.depthMask(false);
+//     gl.stencilMask(0xFF);	
+
+//     gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);
+//     gl.stencilFunc(gl.ALWAYS, 1, 0xff);
+
+//     renderer.render(stencil, camera);
+
+//     gl.depthMask(true);
+//     gl.stencilMask(0x00);
+//     gl.stencilFunc(gl.EQUAL, 0, 0xff);
+
+//     renderer.render(scene, camera);
+    
+//     gl.disable(gl.STENCIL_TEST);
+ 
+    // gl.render(scene, camera);
     // Manually clear the renderer
     gl.clear();
 
@@ -88,7 +112,7 @@ const XR3F = ({ name, updateCtx }) => {
 
     // Enable back the writing into the color and alpha component
     gl.context.colorMask(true, true, true, true);
-    gl.render(scene, camera);
+    gl.render(scene, camera);    gl.render(xxxTempScene, camera);
   }, 1);
 
   // useFrame(({ gl, scene, camera, raycaster }) => {
